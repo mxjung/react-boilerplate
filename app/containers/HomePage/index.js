@@ -46,9 +46,20 @@ export function HomePage({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  // check inputs : by mxjung (note, I changed .eslintrc.js to allow console.log)
+  console.log('username is: ', username);
+  console.log('loading is: ', loading);
+
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    console.log('inside useEffect');
+    if (username && username.trim().length > 0) {
+      console.log('inside useEffect, onSubmitForm called');
+      // mxjung: this is used when going there is already a username state in redux
+      // for instance going from one page and going back to home, look at the dependency,
+      // it is only called on the first load using []
+      onSubmitForm();
+    }
   }, []);
 
   const reposListProps = {
@@ -110,6 +121,10 @@ HomePage.propTypes = {
   onChangeUsername: PropTypes.func,
 };
 
+// In Redux, whenever an action is called anywhere in the application, all mounted & connected components call their mapStateToProps function. This is why Reselect is awesome. It will just return the memoized result if nothing has changed.
+
+// You need to change the standard mapStateToProps to be an anonymous function, that returns a mapStateToProps function (https://medium.com/@parkerdan/react-reselect-and-redux-b34017f8194c)
+
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
   username: makeSelectUsername(),
@@ -121,16 +136,23 @@ export function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
     onSubmitForm: evt => {
+      console.log('inside onSubmitForm');
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
   };
 }
 
+// mxjung: connect function connects a componnent to a redux store
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
+
+// mxjung: compose let you write deeply nested function transformations
+// without the rightward drift of the code
+
+// the goal of React.memo is to check if all the new props received by the component are the same as the last props. If any HOC transforms or adds any props to the component - which connect does by mapping the Redux store to the props, React.memo should be aware of it in order to decide wether or not to update the component. (https://stackoverflow.com/questions/52998469/how-to-use-react-memo-with-react-redux-connect)
 
 export default compose(
   withConnect,

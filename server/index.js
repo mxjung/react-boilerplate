@@ -3,6 +3,10 @@
 const express = require('express');
 const logger = require('./logger');
 
+// mxjung
+const inputRoutes = require('./routes/inputs');
+const bodyParser = require('body-parser');
+
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -14,8 +18,15 @@ const ngrok =
 const { resolve } = require('path');
 const app = express();
 
+// mxjung: Added bodyParser for req.body in post method
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
+
+// mxjung
+app.use('/api', inputRoutes);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

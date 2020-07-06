@@ -19,7 +19,21 @@ export function* getRepos() {
 
   try {
     // Call our request helper (see 'utils/request')
+
+    // mxjung: "call" Creates an Effect description that instructs the middleware to call the function fn with args as arguments (https://redux-saga.js.org/docs/api/#callfn-args)
     const repos = yield call(request, requestURL);
+
+    // mxjung: let's try posting
+    yield call(request, 'http://localhost:3000/api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+      }),
+    });
+
     yield put(reposLoaded(repos, username));
   } catch (err) {
     yield put(repoLoadingError(err));
