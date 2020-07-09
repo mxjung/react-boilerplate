@@ -22,6 +22,7 @@ import {
   // mxjung
   LOAD_INPUTS,
   LOAD_INPUTS_SUCCESS,
+  POST_INPUT,
 } from './constants';
 
 /**
@@ -43,6 +44,17 @@ export function loadRepos() {
 export function loadInputs() {
   return {
     type: LOAD_INPUTS,
+  };
+}
+
+/**
+ * mxjung: post new user input, this action starts the request saga
+ *
+ * @return {object} An action object with a type of POST_INPUT
+ */
+export function postInput() {
+  return {
+    type: POST_INPUT,
   };
 }
 
@@ -70,7 +82,6 @@ export function reposLoaded(repos, username) {
  * @return {object}      An action object with a type of LOAD_INPUTS_SUCCESS passing the inputs
  */
 export function inputsLoaded(inputs) {
-  console.log('inside actions inputsLoaded');
   return {
     type: LOAD_INPUTS_SUCCESS,
     inputs,

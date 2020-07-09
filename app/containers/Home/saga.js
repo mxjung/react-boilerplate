@@ -25,7 +25,8 @@ export function* getRepos() {
     // Call our request helper (see 'utils/request')
 
     // mxjung: "call" Creates an Effect description that instructs the middleware to call the function fn with args as arguments (https://redux-saga.js.org/docs/api/#callfn-args)
-    console.log('inside getRepos Call');
+
+    // console.log('inside getRepos Call');
     const repos = yield call(request, requestURL);
 
     yield put(reposLoaded(repos, username));
@@ -44,7 +45,7 @@ export function* getInputs() {
     // mxjung: let's try posting
     const inputs = yield call(request, requestURL);
 
-    console.log('inside getInputs, inputs is', inputs);
+    // console.log('inside getInputs, inputs is', inputs);
     yield put(inputsLoaded(inputs));
   } catch (err) {
     yield put(repoLoadingError(err));
@@ -72,7 +73,8 @@ export function* postInput() {
       }),
     });
 
-    console.log('inside postInputs, inputs is', inputs);
+    // console.log('inside postInputs, inputs is', inputs);
+
     yield put(inputsLoaded(inputs));
   } catch (err) {
     yield put(repoLoadingError(err));

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = new express.Router();
 
-const arrayOfStrings = ['hello', 'there'];
+const arrayOfStrings = [];
 
 /** GET /   get array of strings
  *
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     console.log('inside POST /api');
 
     // prepend string to arrayOfStrings
-    arrayOfStrings.unshift(req.body.username);
+    arrayOfStrings.unshift(req.body.input);
     return res.json(arrayOfStrings);
   } catch (err) {
     return next(err);

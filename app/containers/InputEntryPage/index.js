@@ -4,10 +4,10 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 // import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -20,73 +20,67 @@ import {
   makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
-  makeSelectUserInputs,
 } from 'containers/App/selectors';
 
-// import H2 from 'components/H2';
-import InputsList from 'components/InputsList';
-// import AtPrefix from './AtPrefix';
+import H2 from 'components/H2';
+// import ReposList from 'components/ReposList';
+import AtPrefix from './AtPrefix';
 // import CenteredSection from './CenteredSection';
-// import Form from './Form';
-// import Input from './Input';
-// import Section from './Section';
-// import messages from './messages';
+import Form from './Form';
+import Input from './Input';
+import Section from './Section';
+import messages from './messages';
 
-import { makeSelectUsername } from './selectors';
 // // mxjung: added: loadInputs
-import { loadInputs } from '../App/actions';
-// import { makeSelectInputs } from '../Home/selectors';
+import { postInput } from '../App/actions';
+import { changeInput } from './actions';
+// mxjung
+import { makeSelectInput } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 const key = 'home';
 
-export function Home({ inputs, loading, error, dispatchInputs }) {
+export function InputEntryPage({
+  input = '',
+  onSubmitForm,
+  onChangeInputString,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  useEffect(() => {
-    // When component first mounts, load all user inputs through API call
-    // console.log('inside useEffect in Home to dispatchInputs');
-    dispatchInputs(loadInputs());
-  }, []);
-
-  // function* getUserInputs() {
-  //   // Select userInput from store
-  //   console.log('inside getUserInputs call XX');
-  //   const inputs = yield select(makeSelectUserInputs());
-  //   console.log('inside useEffect, inputs is: ', inputs);
-  // }
-
-  // useEffect(() => getUserInputs());
-
-  const inputsListProps = {
-    loading,
-    error,
-    inputs,
-  };
-
-  // console.log('INSIDE HOME COMP, inputs is: ', inputs);
-
-  const emptyArrayMsg = () => (
-    <div>There are no inputs. Add values by clicking on Add String button</div>
-  );
-
   return (
-    <div>
-      {inputs.length === 0 ? (
-        emptyArrayMsg()
-      ) : (
-        <InputsList {...inputsListProps} />
-      )}
-    </div>
+    <article>
+      <div>
+        <Section>
+          <H2>
+            <FormattedMessage {...messages.trymeHeader} />
+          </H2>
+          <Form onSubmit={onSubmitForm}>
+            <label htmlFor="input">
+              <FormattedMessage {...messages.trymeMessage} />
+              <AtPrefix>
+                <FormattedMessage {...messages.trymeAtPrefix} />
+              </AtPrefix>
+              <Input
+                id="input"
+                type="text"
+                placeholder="your input here"
+                value={input}
+                onChange={onChangeInputString}
+              />
+            </label>
+          </Form>
+        </Section>
+      </div>
+    </article>
   );
 }
 
-Home.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  inputs: PropTypes.array,
+InputEntryPage.propTypes = {
+  input: PropTypes.string,
+  onSubmitForm: PropTypes.func,
+  onChangeInputString: PropTypes.func,
   dispatchInputs: PropTypes.func,
 };
 
@@ -96,16 +90,18 @@ Home.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
-  username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  inputs: makeSelectUserInputs(),
+  input: makeSelectInput(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    dispatchInputs: () => {
-      dispatch(loadInputs());
+    onChangeInputString: evt => dispatch(changeInput(evt.target.value)),
+    onSubmitForm: evt => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      // mxjung
+      dispatch(postInput());
     },
   };
 }
@@ -124,4 +120,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(Home);
+)(InputEntryPage);
