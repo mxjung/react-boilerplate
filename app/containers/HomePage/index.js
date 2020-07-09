@@ -27,7 +27,9 @@ import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
+
+// mxjung: added: loadInputs
+import { loadRepos, loadInputs } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -47,12 +49,9 @@ export function HomePage({
   useInjectSaga({ key, saga });
 
   // check inputs : by mxjung (note, I changed .eslintrc.js to allow console.log)
-  console.log('username is: ', username);
-  console.log('loading is: ', loading);
 
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
-    console.log('inside useEffect');
     if (username && username.trim().length > 0) {
       console.log('inside useEffect, onSubmitForm called');
       // mxjung: this is used when going there is already a username state in redux
@@ -138,6 +137,8 @@ export function mapDispatchToProps(dispatch) {
     onSubmitForm: evt => {
       console.log('inside onSubmitForm');
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      // mxjung
+      dispatch(loadInputs());
       dispatch(loadRepos());
     },
   };

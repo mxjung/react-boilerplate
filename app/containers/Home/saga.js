@@ -35,12 +35,28 @@ export function* getRepos() {
 }
 
 /** mxjung
- * Github repos request/response handler
+ * Express backend GET request/response handler
  */
 export function* getInputs() {
   try {
+    // backend API
+    const requestURL = `http://localhost:3000/api`;
+    // mxjung: let's try posting
+    const inputs = yield call(request, requestURL);
+
+    console.log('inside getInputs, inputs is', inputs);
+    yield put(inputsLoaded(inputs));
+  } catch (err) {
+    yield put(repoLoadingError(err));
+  }
+}
+
+/**
+ * Express backend POST request/response handler
+ */
+export function* postInput() {
+  try {
     // Select username from store
-    console.log('inside getInputs Call');
     const username = yield select(makeSelectUsername());
 
     // backend API
@@ -56,6 +72,7 @@ export function* getInputs() {
       }),
     });
 
+    console.log('inside postInputs, inputs is', inputs);
     yield put(inputsLoaded(inputs));
   } catch (err) {
     yield put(repoLoadingError(err));

@@ -33,6 +33,13 @@ const makeSelectRepos = () =>
     globalState => globalState.userData.repositories,
   );
 
+// mxjung
+const makeSelectUserInputs = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.userInputs,
+  );
+
 const makeSelectLocation = () =>
   createSelector(
     selectRouter,
@@ -46,4 +53,5 @@ export {
   makeSelectError,
   makeSelectRepos,
   makeSelectLocation,
+  makeSelectUserInputs,
 };

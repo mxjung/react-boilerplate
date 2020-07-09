@@ -32,7 +32,8 @@ router.post('/', (req, res, next) => {
   try {
     console.log('inside POST /api');
 
-    arrayOfStrings.push(req.body.username);
+    // prepend string to arrayOfStrings
+    arrayOfStrings.unshift(req.body.username);
     return res.json(arrayOfStrings);
   } catch (err) {
     return next(err);

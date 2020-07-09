@@ -15,7 +15,14 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
+import {
+  LOAD_REPOS,
+  LOAD_REPOS_SUCCESS,
+  LOAD_REPOS_ERROR,
+  // mxjung
+  LOAD_INPUTS,
+  LOAD_INPUTS_SUCCESS,
+} from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -25,6 +32,17 @@ import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
 export function loadRepos() {
   return {
     type: LOAD_REPOS,
+  };
+}
+
+/**
+ * mxjung: Load the user inputs, this action starts the request saga
+ *
+ * @return {object} An action object with a type of LOAD_INPUTS
+ */
+export function loadInputs() {
+  return {
+    type: LOAD_INPUTS,
   };
 }
 
@@ -41,6 +59,21 @@ export function reposLoaded(repos, username) {
     type: LOAD_REPOS_SUCCESS,
     repos,
     username,
+  };
+}
+
+/** mxjung
+ * Dispatched when the user inputs are loaded by the request saga
+ *
+ * @param  {array} inputs The array containing user input strings
+ *
+ * @return {object}      An action object with a type of LOAD_INPUTS_SUCCESS passing the inputs
+ */
+export function inputsLoaded(inputs) {
+  console.log('inside actions inputsLoaded');
+  return {
+    type: LOAD_INPUTS_SUCCESS,
+    inputs,
   };
 }
 
