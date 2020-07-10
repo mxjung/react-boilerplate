@@ -11,7 +11,7 @@ export default defineMessages({
   instructions: {
     id: `${scope}.instructions.message`,
     defaultMessage:
-      'Please enter a word into the input box below and click your keyboard enter or click the "Submit" button. This will add the word into the store. Once you have been notified that the word has been stored, please navigate back to the homepage using the "Home" button to see the word you have added to the store',
+      'Please enter a word into the input box below and click your keyboard enter or click the "Submit" button. This will add the word into the store. Once done, please navigate back to the homepage using the "Home" button to see the word you have added to the store',
   },
   invalidInputMsg: {
     id: `${scope}.invalidInputMsg.message`,

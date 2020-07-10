@@ -4,36 +4,10 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_INPUTS } from 'containers/App/constants';
-import {
-  reposLoaded,
-  repoLoadingError,
-  inputsLoaded,
-} from 'containers/App/actions';
+import { repoLoadingError, inputsLoaded } from 'containers/App/actions';
 
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
-
-/**
- * Github repos request/response handler
- */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
-  try {
-    // Call our request helper (see 'utils/request')
-
-    // mxjung: "call" Creates an Effect description that instructs the middleware to call the function fn with args as arguments (https://redux-saga.js.org/docs/api/#callfn-args)
-
-    // console.log('inside getRepos Call');
-    const repos = yield call(request, requestURL);
-
-    yield put(reposLoaded(repos, username));
-  } catch (err) {
-    yield put(repoLoadingError(err));
-  }
-}
 
 /** mxjung
  * Express backend GET request/response handler
@@ -42,10 +16,10 @@ export function* getInputs() {
   try {
     // backend API
     const requestURL = `http://localhost:3000/api`;
-    // mxjung: let's try posting
+
+    // mxjung: let's make GET request
     const inputs = yield call(request, requestURL);
 
-    // console.log('inside getInputs, inputs is', inputs);
     yield put(inputsLoaded(inputs));
   } catch (err) {
     yield put(repoLoadingError(err));

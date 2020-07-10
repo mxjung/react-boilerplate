@@ -58,7 +58,6 @@ const appReducer = (state = initialState, action) =>
         break;
 
       case LOAD_INPUTS_SUCCESS:
-        console.log('inside LOAD_INPUTS_SUCCESS, inputs is: ', action.inputs);
         draft.userInputs = action.inputs;
         draft.loading = false;
         break;

@@ -12,37 +12,31 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { useInjectReducer } from 'utils/injectReducer';
+// import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 // import { select } from 'redux-saga/effects';
 
 import {
-  makeSelectRepos,
+  // makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
   makeSelectUserInputs,
 } from 'containers/App/selectors';
 
-// import H2 from 'components/H2';
 import InputsList from 'components/InputsList';
-// import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
-// import Form from './Form';
-// import Input from './Input';
-// import Section from './Section';
 import messages from './messages';
 
-import { makeSelectUsername } from './selectors';
 // // mxjung: added: loadInputs
 import { loadInputs } from '../App/actions';
 // import { makeSelectInputs } from '../Home/selectors';
-import reducer from './reducer';
+// import reducer from './reducer';
 import saga from './saga';
 
 const key = 'home';
 
 export function Home({ inputs, loading, error, dispatchInputs }) {
-  useInjectReducer({ key, reducer });
+  // useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
@@ -51,25 +45,20 @@ export function Home({ inputs, loading, error, dispatchInputs }) {
     dispatchInputs(loadInputs());
   }, []);
 
-  // function* getUserInputs() {
-  //   // Select userInput from store
-  //   console.log('inside getUserInputs call XX');
-  //   const inputs = yield select(makeSelectUserInputs());
-  //   console.log('inside useEffect, inputs is: ', inputs);
-  // }
-
-  // useEffect(() => getUserInputs());
-
   const inputsListProps = {
     loading,
     error,
     inputs,
   };
 
+  // if loading has completed, and the inputs array is still an empty array,
+  // that means the backend server array is empty. In the case that inputs
+  // is empty, there is a possibility that it's still loading, hence the
+  // conditional check to make sure inputs is empty AND loading has completed
   return (
     <article>
       <div>
-        {inputs.length === 0 ? (
+        {inputs.length === 0 && !loading ? (
           <CenteredSection>
             <p>
               <FormattedMessage {...messages.emptyArray} />
@@ -84,9 +73,9 @@ export function Home({ inputs, loading, error, dispatchInputs }) {
 }
 
 Home.propTypes = {
+  inputs: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  inputs: PropTypes.array,
   dispatchInputs: PropTypes.func,
 };
 
@@ -95,11 +84,9 @@ Home.propTypes = {
 // You need to change the standard mapStateToProps to be an anonymous function, that returns a mapStateToProps function (https://medium.com/@parkerdan/react-reselect-and-redux-b34017f8194c)
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
+  inputs: makeSelectUserInputs(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  inputs: makeSelectUserInputs(),
 });
 
 export function mapDispatchToProps(dispatch) {
