@@ -7,7 +7,7 @@
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 // import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -26,11 +26,11 @@ import {
 // import H2 from 'components/H2';
 import InputsList from 'components/InputsList';
 // import AtPrefix from './AtPrefix';
-// import CenteredSection from './CenteredSection';
+import CenteredSection from './CenteredSection';
 // import Form from './Form';
 // import Input from './Input';
 // import Section from './Section';
-// import messages from './messages';
+import messages from './messages';
 
 import { makeSelectUsername } from './selectors';
 // // mxjung: added: loadInputs
@@ -66,20 +66,20 @@ export function Home({ inputs, loading, error, dispatchInputs }) {
     inputs,
   };
 
-  // console.log('INSIDE HOME COMP, inputs is: ', inputs);
-
-  const emptyArrayMsg = () => (
-    <div>There are no inputs. Add values by clicking on Add String button</div>
-  );
-
   return (
-    <div>
-      {inputs.length === 0 ? (
-        emptyArrayMsg()
-      ) : (
-        <InputsList {...inputsListProps} />
-      )}
-    </div>
+    <article>
+      <div>
+        {inputs.length === 0 ? (
+          <CenteredSection>
+            <p>
+              <FormattedMessage {...messages.emptyArray} />
+            </p>
+          </CenteredSection>
+        ) : (
+          <InputsList {...inputsListProps} />
+        )}
+      </div>
+    </article>
   );
 }
 

@@ -1,0 +1,4 @@
+diff a/app/containers/App/index.js b/app/containers/App/index.js	(rejected hunks)
+@@ -20 +20 @@ import Header from 'components/Header';
+-import Footer from 'components/Footer';
++// import Footer from 'components/Footer';

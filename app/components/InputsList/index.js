@@ -20,14 +20,6 @@ function InputsList({ loading, error, inputs }) {
 
   if (inputs !== false) {
     return <List items={inputs} component={InputListItem} />;
-    // return (
-    //   <ul>
-    //     {inputs.map((input, idx) => (
-    //       // eslint-disable-next-line react/no-array-index-key
-    //       <li key={idx}>{input}</li>
-    //     ))}
-    //   </ul>
-    // );
   }
 
   return null;

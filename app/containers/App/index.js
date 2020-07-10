@@ -23,12 +23,12 @@ import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
+  margin: 0px auto;
   display: flex;
   min-height: 100%;
   padding: 0 16px;
   flex-direction: column;
-  background-color: lightgrey;
+  background-color: rgba(242, 242, 242);
 `;
 
 export default function App() {
