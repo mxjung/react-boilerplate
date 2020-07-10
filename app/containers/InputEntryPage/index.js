@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -27,22 +27,32 @@ import messages from './messages';
 
 // // mxjung: added: loadInputs
 import { postInput } from '../App/actions';
-import { changeInput } from './actions';
+import { changeInput, toggleValidInput } from './actions';
 // mxjung
 import { makeSelectInput, makeSelectValidInput } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-const key = 'home';
+const key = 'inputEntryPage';
 
 export function InputEntryPage({
   input = '',
   validInput,
   onSubmitForm,
   onChangeInputString,
+  toggleValid,
 }) {
   useInjectReducer({ key, reducer });
+
+  // Will allow saga to keep track of POST_INPUT action
   useInjectSaga({ key, saga });
+
+  // When component unmounts, toggle validInput to be true
+  // This is done so that if user inputs wrong input (empty string),
+  // an error msg will pop up. Once the user leaves this page, that
+  // error msg component should no longer be there when the user comes
+  // back to the page.
+  useEffect(() => () => toggleValid(true), []);
 
   return (
     <article>
@@ -81,6 +91,7 @@ InputEntryPage.propTypes = {
   validInput: PropTypes.bool,
   onSubmitForm: PropTypes.func,
   onChangeInputString: PropTypes.func,
+  toggleValid: PropTypes.func,
 };
 
 // In Redux, whenever an action is called anywhere in the application, all mounted & connected components call their mapStateToProps function. This is why Reselect is awesome. It will just return the memoized result if nothing has changed.
@@ -100,6 +111,7 @@ export function mapDispatchToProps(dispatch) {
       // mxjung
       dispatch(postInput());
     },
+    toggleValid: val => dispatch(toggleValidInput(val)),
   };
 }
 

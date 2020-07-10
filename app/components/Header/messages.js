@@ -15,7 +15,7 @@ export default defineMessages({
   intro: {
     id: `${scope}.intro`,
     defaultMessage:
-      'This is a simple React and Express web application that utilized redux. The purpose of this application is to use react-boilerplate to implement a simple application where users can add strings to an array that is stored in the backend.',
+      'This is a simple React and Express web application that utilizes redux. The purpose of this application is to use react-boilerplate to implement a simple application where users can add strings to an array that is stored in the backend.',
   },
   home: {
     id: `${scope}.home`,

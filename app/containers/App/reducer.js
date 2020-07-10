@@ -15,6 +15,7 @@ import {
   // mxjung
   LOAD_INPUTS,
   LOAD_INPUTS_SUCCESS,
+  ADD_INPUT,
 } from './constants';
 
 // The initial state of the App
@@ -60,6 +61,11 @@ const appReducer = (state = initialState, action) =>
       case LOAD_INPUTS_SUCCESS:
         draft.userInputs = action.inputs;
         draft.loading = false;
+        break;
+
+      case ADD_INPUT:
+        console.log('inside add_input');
+        draft.userInputs.unshift(action.input);
         break;
     }
   });

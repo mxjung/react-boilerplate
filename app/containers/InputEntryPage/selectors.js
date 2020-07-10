@@ -5,20 +5,20 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectHome = state => state.home || initialState;
+const selectInputEntryPage = state => state.inputEntryPage || initialState;
 
 // Grab input from home state
 const makeSelectInput = () =>
   createSelector(
-    selectHome,
+    selectInputEntryPage,
     homeState => homeState.input,
   );
 
 // Grab valid boolean from home state
 const makeSelectValidInput = () =>
   createSelector(
-    selectHome,
+    selectInputEntryPage,
     homeState => homeState.validInput,
   );
 
-export { selectHome, makeSelectInput, makeSelectValidInput };
+export { selectInputEntryPage, makeSelectInput, makeSelectValidInput };

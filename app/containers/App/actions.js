@@ -23,6 +23,7 @@ import {
   LOAD_INPUTS,
   LOAD_INPUTS_SUCCESS,
   POST_INPUT,
+  ADD_INPUT,
 } from './constants';
 
 /**
@@ -85,6 +86,20 @@ export function inputsLoaded(inputs) {
   return {
     type: LOAD_INPUTS_SUCCESS,
     inputs,
+  };
+}
+
+/** mxjung
+ * Dispatched to add input to array
+ *
+ * @param  {array} inputs The array containing user input strings
+ *
+ * @return {object}      An action object with a type of ADD_INPUT passing the inputs
+ */
+export function addInput(input) {
+  return {
+    type: ADD_INPUT,
+    input,
   };
 }
 

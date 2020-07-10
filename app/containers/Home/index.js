@@ -41,8 +41,16 @@ export function Home({ inputs, loading, error, dispatchInputs }) {
 
   useEffect(() => {
     // When component first mounts, load all user inputs through API call
-    // console.log('inside useEffect in Home to dispatchInputs');
-    dispatchInputs(loadInputs());
+    // This wouldn't be necessary if our backend had no data already.
+    // However, if there is already an array with data in the backend, we
+    // need to load that into our redux store first.
+
+    // In order to make sure we aren't calling dispatchInputs every time
+    // the component is mounted, only call dispatchInputs when on first mount.
+    // The action ADD_INPUT will be called in the InputEntryPage saga, meaning
+    // that by the time users come back to home, the array should be updated with
+    // the new string entry.
+    if (inputs.length === 0) dispatchInputs(loadInputs());
   }, []);
 
   const inputsListProps = {
