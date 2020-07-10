@@ -10,8 +10,10 @@ function List(props) {
 
   // If we have items, render them
   if (props.items) {
-    content = props.items.map(item => (
-      <ComponentToRender key={`item-${item.id}`} item={item} />
+    content = props.items.map((item, idx) => (
+      // mxjung: changed key to have idx of array
+      // eslint-disable-next-line react/no-array-index-key
+      <ComponentToRender key={`item-${idx}`} item={item} />
     ));
   } else {
     // Otherwise render a single component

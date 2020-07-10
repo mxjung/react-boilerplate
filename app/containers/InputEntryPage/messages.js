@@ -8,25 +8,13 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.HomePage';
 
 export default defineMessages({
-  startProjectHeader: {
-    id: `${scope}.start_project.header`,
-    defaultMessage: 'Start your next react project in seconds',
-  },
-  startProjectMessage: {
-    id: `${scope}.start_project.message`,
+  instructions: {
+    id: `${scope}.instructions.message`,
     defaultMessage:
-      'A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices',
+      'Please enter a word into the input box below and click your keyboard enter or click the "Submit" button. This will add the word into the store. Once you have been notified that the word has been stored, please navigate back to the homepage using the "Home" button to see the word you have added to the store',
   },
-  trymeHeader: {
-    id: `${scope}.tryme.header`,
-    defaultMessage: 'Try me!',
-  },
-  trymeMessage: {
-    id: `${scope}.tryme.message`,
-    defaultMessage: 'Show Github repositories by',
-  },
-  trymeAtPrefix: {
-    id: `${scope}.tryme.atPrefix`,
-    defaultMessage: '@',
+  invalidInputMsg: {
+    id: `${scope}.invalidInputMsg.message`,
+    defaultMessage: 'Please enter a valid word (not empty)',
   },
 });

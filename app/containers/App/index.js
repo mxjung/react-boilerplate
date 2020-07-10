@@ -26,7 +26,7 @@ const AppWrapper = styled.div`
   margin: 0px auto;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 20px 16px;
   flex-direction: column;
   background-color: rgba(242, 242, 242);
 `;

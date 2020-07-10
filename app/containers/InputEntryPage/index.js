@@ -16,26 +16,20 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 // import { select } from 'redux-saga/effects';
 
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
-
-import H2 from 'components/H2';
 // import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
-// import CenteredSection from './CenteredSection';
+import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
+import Intro from './Intro';
 import Section from './Section';
+import InvalidInput from './InvalidInput';
 import messages from './messages';
 
 // // mxjung: added: loadInputs
 import { postInput } from '../App/actions';
 import { changeInput } from './actions';
 // mxjung
-import { makeSelectInput } from './selectors';
+import { makeSelectInput, makeSelectValidInput } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -43,34 +37,40 @@ const key = 'home';
 
 export function InputEntryPage({
   input = '',
+  validInput,
   onSubmitForm,
   onChangeInputString,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  console.log('validInput is: ', validInput);
+
   return (
     <article>
       <div>
         <Section>
-          <H2>
-            <FormattedMessage {...messages.trymeHeader} />
-          </H2>
-          <Form onSubmit={onSubmitForm}>
-            <label htmlFor="input">
-              <FormattedMessage {...messages.trymeMessage} />
-              <AtPrefix>
-                <FormattedMessage {...messages.trymeAtPrefix} />
-              </AtPrefix>
-              <Input
-                id="input"
-                type="text"
-                placeholder="your input here"
-                value={input}
-                onChange={onChangeInputString}
-              />
-            </label>
-          </Form>
+          <CenteredSection>
+            <Intro>
+              <FormattedMessage {...messages.instructions} />
+            </Intro>
+            <Form onSubmit={onSubmitForm}>
+              <label htmlFor="input">
+                <Input
+                  id="input"
+                  type="text"
+                  placeholder="your input here"
+                  value={input}
+                  onChange={onChangeInputString}
+                />
+              </label>
+            </Form>
+          </CenteredSection>
+          {!validInput ? (
+            <InvalidInput>
+              <FormattedMessage {...messages.invalidInputMsg} />
+            </InvalidInput>
+          ) : null}
         </Section>
       </div>
     </article>
@@ -79,9 +79,9 @@ export function InputEntryPage({
 
 InputEntryPage.propTypes = {
   input: PropTypes.string,
+  validInput: PropTypes.bool,
   onSubmitForm: PropTypes.func,
   onChangeInputString: PropTypes.func,
-  dispatchInputs: PropTypes.func,
 };
 
 // In Redux, whenever an action is called anywhere in the application, all mounted & connected components call their mapStateToProps function. This is why Reselect is awesome. It will just return the memoized result if nothing has changed.
@@ -89,10 +89,8 @@ InputEntryPage.propTypes = {
 // You need to change the standard mapStateToProps to be an anonymous function, that returns a mapStateToProps function (https://medium.com/@parkerdan/react-reselect-and-redux-b34017f8194c)
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
   input: makeSelectInput(),
+  validInput: makeSelectValidInput(),
 });
 
 export function mapDispatchToProps(dispatch) {

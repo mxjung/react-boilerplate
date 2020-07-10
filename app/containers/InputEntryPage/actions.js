@@ -15,14 +15,14 @@
  *    }
  */
 
-import { CHANGE_INPUT, RESET_INPUT } from './constants';
+import { CHANGE_INPUT, RESET_INPUT, VALID_INPUT } from './constants';
 
 /**
  * Changes the input field of the form
  *
  * @param  {string} input The new text of the input field
  *
- * @return {object} An action object with a type of CHANGE_USERNAME
+ * @return {object} An action object with a type of CHANGE_INPUT
  */
 export function changeInput(input) {
   return {
@@ -36,11 +36,25 @@ export function changeInput(input) {
  *
  * @param  {array} input The user input string
  *
- * @return {object}      An action object with a type of LOAD_INPUTS_SUCCESS passing the inputs
+ * @return {object}      An action object with a type of RESET_INPUT
  */
 export function resetInput() {
   console.log('inside App/actions, resetInput called');
   return {
     type: RESET_INPUT,
+  };
+}
+
+/**
+ * Dispatched to change state of whether user input is valid or not
+ *
+ * @param  {array} valid Boolean for whether input is valid or not
+ *
+ * @return {object}      An action object with a type of VALID_INPUT and a valid boolean
+ */
+export function toggleValidInput(valid) {
+  return {
+    type: VALID_INPUT,
+    valid,
   };
 }

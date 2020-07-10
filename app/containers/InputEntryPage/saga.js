@@ -9,7 +9,7 @@ import { repoLoadingError } from 'containers/App/actions';
 import request from 'utils/request';
 import { makeSelectInput } from 'containers/InputEntryPage/selectors';
 
-import { resetInput } from './actions';
+import { resetInput, toggleValidInput } from './actions';
 
 /**
  * Express backend POST request/response handler
@@ -21,18 +21,29 @@ export function* postInput() {
     // backend API
     const requestURL = `http://localhost:3000/api`;
 
-    yield call(request, requestURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        input,
-      }),
-    });
-    console.log('inside InputEntryPage saga');
-    // reset user input form value to be empty string
-    yield put(resetInput());
+    // if input string is empty, meaning that a user tried to submit
+    // input with an empty string, alert user telling them that the
+    // submitted input is invalid, and to enter a valid input
+
+    if (input === '') {
+      yield put(toggleValidInput(false));
+    } else {
+      yield put(toggleValidInput(true));
+
+      // make post request to add input string to backend server array
+      yield call(request, requestURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          input,
+        }),
+      });
+
+      // reset user input form value to be empty
+      yield put(resetInput());
+    }
   } catch (err) {
     yield put(repoLoadingError(err));
   }
