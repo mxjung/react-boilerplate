@@ -44,8 +44,6 @@ export function InputEntryPage({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  console.log('validInput is: ', validInput);
-
   return (
     <article>
       <div>
@@ -64,6 +62,7 @@ export function InputEntryPage({
                   onChange={onChangeInputString}
                 />
               </label>
+              <button type="submit">Submit</button>
             </Form>
           </CenteredSection>
           {!validInput ? (
