@@ -1,7 +1,7 @@
 /**
- * RepoListItem
+ * InputListItem
  *
- * Lists the name and the issue count of a repository
+ * Lists the strings in the userArray
  */
 
 import React from 'react';
@@ -10,7 +10,7 @@ import ListItem from 'components/ListItem';
 
 export function InputListItem({ item }) {
   // Render the content into a list item
-  return <ListItem key={`repo-list-item-${item.full_name}`} item={item} />;
+  return <ListItem key={`input-list-item-${item.full_name}`} item={item} />;
 }
 
 InputListItem.propTypes = {

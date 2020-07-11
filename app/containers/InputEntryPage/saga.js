@@ -1,14 +1,12 @@
 /**
- * POsts new form inputs to Express backend
+ * Posts new form inputs to Express backend
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { POST_INPUT } from 'containers/App/constants';
 import { inputLoadingError, inputsLoaded } from 'containers/App/actions';
-
 import request from 'utils/request';
 import { makeSelectInput } from 'containers/InputEntryPage/selectors';
-
 import { resetInput, toggleValidInput } from './actions';
 
 /**
@@ -16,16 +14,15 @@ import { resetInput, toggleValidInput } from './actions';
  */
 export function* postInput() {
   try {
-    // Select user input from store
+    // Select user input string from store
     const input = yield select(makeSelectInput());
-    // backend API
+    // backend API route
     const requestURL = `http://localhost:3000/api`;
 
-    // if input string is empty, meaning that a user tried to submit
-    // input with an empty string, alert user telling them that the
-    // submitted input is invalid, and to enter a valid input
-
     if (input === '') {
+      // if input string is empty, meaning that a user tried to submit
+      // input with an empty string, alert user telling them that the
+      // submitted input is invalid, and to enter a valid input
       yield put(toggleValidInput(false));
     } else {
       yield put(toggleValidInput(true));
@@ -41,10 +38,12 @@ export function* postInput() {
         }),
       });
 
-      // reset user input form value to be empty
+      // reset user input form value to be empty (so that users cannot
+      // spam the same word over and over again)
       yield put(resetInput());
 
-      // Update redux store with new value
+      // Update redux store with the new userInputs array (with new input
+      // prepended to the array)
       yield put(inputsLoaded(updatedInputs));
     }
   } catch (err) {
@@ -61,6 +60,5 @@ export default function* userInputData() {
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
 
-  // mxjung
   yield takeLatest(POST_INPUT, postInput);
 }

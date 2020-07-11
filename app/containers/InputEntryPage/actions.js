@@ -23,11 +23,11 @@ import {
 } from './constants';
 
 /**
- * Changes the input field of the form
+ * Changes the input field value of the form
  *
  * @param  {string} input The new text of the input field
  *
- * @return {object} An action object with a type of CHANGE_INPUT
+ * @return {object} An action object with a type of CHANGE_INPUT and input value
  */
 export function changeInput(input) {
   return {
@@ -38,8 +38,6 @@ export function changeInput(input) {
 
 /**
  * Dispatched to erase user input from form
- *
- * @param  {array} input The user input string
  *
  * @return {object}      An action object with a type of RESET_INPUT
  */
@@ -68,7 +66,7 @@ export function toggleValidInput(valid) {
  *
  * @param  {string} errorMsg  Error string message
  *
- * @return {object}           An action object with a type of VALID_INPUT and a valid boolean
+ * @return {object}           An action object with a type of ERROR_MESSAGE and a errorMsg value
  */
 export function changeErrorMsg(errorMsg) {
   return {

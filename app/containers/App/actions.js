@@ -23,7 +23,7 @@ import {
 } from './constants';
 
 /**
- * mxjung: Load the user inputs, this action starts the request saga
+ * Load the user inputs, this action starts the request saga in Home
  *
  * @return {object} An action object with a type of LOAD_INPUTS
  */
@@ -34,7 +34,7 @@ export function loadInputs() {
 }
 
 /**
- * mxjung: post new user input, this action starts the request saga
+ * post new user input, this action starts the request saga in InputEntryPage
  *
  * @return {object} An action object with a type of POST_INPUT
  */

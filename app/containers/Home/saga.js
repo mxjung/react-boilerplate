@@ -1,5 +1,5 @@
 /**
- * Gets the repositories of the user from Github
+ * Gets the inputs of the user from Express backend
  */
 
 import { call, put, takeLatest } from 'redux-saga/effects';
@@ -8,7 +8,7 @@ import { inputLoadingError, inputsLoaded } from 'containers/App/actions';
 
 import request from 'utils/request';
 
-/** mxjung
+/**
  * Express backend GET request/response handler
  */
 export function* getInputs() {
@@ -28,12 +28,10 @@ export function* getInputs() {
  * Root saga manages watcher lifecycle
  */
 export default function* userInputData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
+  // Watches for LOAD_INPUTS actions and calls getInputs when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  // yield takeLatest(LOAD_REPOS, getRepos);
 
-  // mxjung
   yield takeLatest(LOAD_INPUTS, getInputs);
 }

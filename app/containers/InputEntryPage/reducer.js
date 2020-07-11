@@ -31,7 +31,6 @@ const homeReducer = (state = initialState, action) =>
         break;
 
       case RESET_INPUT:
-        console.log('inside RESET INPUT');
         draft.input = '';
         break;
 
