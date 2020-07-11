@@ -2,21 +2,25 @@
 
 exports[`<Header /> should render a div 1`] = `
 <div>
-  <a
-    class="A-br8h0y-0 A-p44m4v-0 cYguYL"
-    href="https://www.reactboilerplate.com/"
+  <div
+    class="Banner-sc-1311ini-0 hcbzZV"
   >
-    <img
-      alt="react-boilerplate - Logo"
-      class="Img-sc-9pa8on-0 eepIiv"
-      src="IMAGE_MOCK"
-    />
-  </a>
+    <span>
+      Welcome!
+    </span>
+  </div>
+  <div
+    class="Intro-sc-1yxzv51-0 eeHGuP"
+  >
+    <span>
+      This is a simple React and Express web application that utilizes redux. The purpose of this application is to use react-boilerplate to implement a simple application where users can add strings to an array that is stored in the backend.
+    </span>
+  </div>
   <div
     class="NavBar-sc-3b48xb-0 ioQxlc"
   >
     <a
-      class="HeaderLink-sc-1mtyaiv-0 hMiTYG"
+      class="HeaderLink-sc-1mtyaiv-0 djuceY"
       href="/"
     >
       <span>
@@ -24,11 +28,11 @@ exports[`<Header /> should render a div 1`] = `
       </span>
     </a>
     <a
-      class="HeaderLink-sc-1mtyaiv-0 hMiTYG"
-      href="/features"
+      class="HeaderLink-sc-1mtyaiv-0 djuceY"
+      href="/inputs"
     >
       <span>
-        Features
+        Add String
       </span>
     </a>
   </div>
