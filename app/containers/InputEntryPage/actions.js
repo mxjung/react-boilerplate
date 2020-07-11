@@ -15,7 +15,12 @@
  *    }
  */
 
-import { CHANGE_INPUT, RESET_INPUT, VALID_INPUT } from './constants';
+import {
+  CHANGE_INPUT,
+  RESET_INPUT,
+  VALID_INPUT,
+  ERROR_MESSAGE,
+} from './constants';
 
 /**
  * Changes the input field of the form
@@ -39,7 +44,6 @@ export function changeInput(input) {
  * @return {object}      An action object with a type of RESET_INPUT
  */
 export function resetInput() {
-  console.log('inside App/actions, resetInput called');
   return {
     type: RESET_INPUT,
   };
@@ -56,5 +60,19 @@ export function toggleValidInput(valid) {
   return {
     type: VALID_INPUT,
     valid,
+  };
+}
+
+/**
+ * Dispatched to update error msg to notify string that surpasses threshold length
+ *
+ * @param  {string} errorMsg  Error string message
+ *
+ * @return {object}           An action object with a type of VALID_INPUT and a valid boolean
+ */
+export function changeErrorMsg(errorMsg) {
+  return {
+    type: ERROR_MESSAGE,
+    errorMsg,
   };
 }

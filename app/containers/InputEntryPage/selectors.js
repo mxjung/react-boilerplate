@@ -21,4 +21,16 @@ const makeSelectValidInput = () =>
     homeState => homeState.validInput,
   );
 
-export { selectInputEntryPage, makeSelectInput, makeSelectValidInput };
+// Grab valid boolean from home state
+const makeSelectErrorMsg = () =>
+  createSelector(
+    selectInputEntryPage,
+    homeState => homeState.errorMsg,
+  );
+
+export {
+  selectInputEntryPage,
+  makeSelectInput,
+  makeSelectValidInput,
+  makeSelectErrorMsg,
+};

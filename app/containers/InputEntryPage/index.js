@@ -27,9 +27,13 @@ import messages from './messages';
 
 // // mxjung: added: loadInputs
 import { postInput } from '../App/actions';
-import { changeInput, toggleValidInput } from './actions';
+import { changeInput, toggleValidInput, changeErrorMsg } from './actions';
 // mxjung
-import { makeSelectInput, makeSelectValidInput } from './selectors';
+import {
+  makeSelectInput,
+  makeSelectValidInput,
+  makeSelectErrorMsg,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -41,18 +45,25 @@ export function InputEntryPage({
   onSubmitForm,
   onChangeInputString,
   toggleValid,
+  errorMsg,
+  resetErrorMsg,
 }) {
   useInjectReducer({ key, reducer });
 
   // Will allow saga to keep track of POST_INPUT action
   useInjectSaga({ key, saga });
 
-  // When component unmounts, toggle validInput to be true
-  // This is done so that if user inputs wrong input (empty string),
-  // an error msg will pop up. Once the user leaves this page, that
-  // error msg component should no longer be there when the user comes
-  // back to the page.
-  useEffect(() => () => toggleValid(true), []);
+  // When component unmounts, toggle validInput to be true and set errorMsg
+  // to be empty. This is done so that if user inputs wrong input (empty string),
+  // an error msg will pop up. Once the user leaves this page, that error msg
+  // component should no longer be there when the user comes back to the page.
+  useEffect(
+    () => () => {
+      toggleValid(true);
+      resetErrorMsg();
+    },
+    [],
+  );
 
   return (
     <article>
@@ -80,6 +91,11 @@ export function InputEntryPage({
               <FormattedMessage {...messages.invalidInputMsg} />
             </InvalidInput>
           ) : null}
+          {errorMsg === 'charLimit' ? (
+            <InvalidInput>
+              <FormattedMessage {...messages.charLimitErrorMsg} />
+            </InvalidInput>
+          ) : null}
         </Section>
       </div>
     </article>
@@ -92,6 +108,8 @@ InputEntryPage.propTypes = {
   onSubmitForm: PropTypes.func,
   onChangeInputString: PropTypes.func,
   toggleValid: PropTypes.func,
+  errorMsg: PropTypes.string,
+  resetErrorMsg: PropTypes.func,
 };
 
 // In Redux, whenever an action is called anywhere in the application, all mounted & connected components call their mapStateToProps function. This is why Reselect is awesome. It will just return the memoized result if nothing has changed.
@@ -101,17 +119,29 @@ InputEntryPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   input: makeSelectInput(),
   validInput: makeSelectValidInput(),
+  errorMsg: makeSelectErrorMsg(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeInputString: evt => dispatch(changeInput(evt.target.value)),
+    onChangeInputString: evt => {
+      if (evt.target.value.length > 15) {
+        // if the user adds a input string that is greater than 15 characters, don't allow it.
+        // an error msg will pop up on screen notifying users to pick a string that is less than
+        // 15 characters. This is done mainly to protect the application from the worst case scenario.
+        dispatch(changeErrorMsg('charLimit'));
+      } else {
+        // Once users are below the char limit, remove the error msg on screen
+        dispatch(changeErrorMsg(''));
+        dispatch(changeInput(evt.target.value));
+      }
+    },
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      // mxjung
       dispatch(postInput());
     },
     toggleValid: val => dispatch(toggleValidInput(val)),
+    resetErrorMsg: () => dispatch(changeErrorMsg('')),
   };
 }
 

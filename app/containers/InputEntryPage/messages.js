@@ -17,4 +17,9 @@ export default defineMessages({
     id: `${scope}.invalidInputMsg.message`,
     defaultMessage: 'Please enter a valid word (not empty)',
   },
+  charLimitErrorMsg: {
+    id: `${scope}.charLimitErrorMsg.message`,
+    defaultMessage:
+      'Please keep your input string less than 15 characters long',
+  },
 });

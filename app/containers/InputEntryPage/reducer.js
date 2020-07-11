@@ -8,12 +8,18 @@
  */
 
 import produce from 'immer';
-import { CHANGE_INPUT, RESET_INPUT, VALID_INPUT } from './constants';
+import {
+  CHANGE_INPUT,
+  RESET_INPUT,
+  VALID_INPUT,
+  ERROR_MESSAGE,
+} from './constants';
 
 // The initial state of the App
 export const initialState = {
   input: '',
   validInput: true,
+  errorMsg: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -31,6 +37,10 @@ const homeReducer = (state = initialState, action) =>
 
       case VALID_INPUT:
         draft.validInput = action.valid;
+        break;
+
+      case ERROR_MESSAGE:
+        draft.errorMsg = action.errorMsg;
         break;
     }
   });

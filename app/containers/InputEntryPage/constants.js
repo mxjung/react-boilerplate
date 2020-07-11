@@ -12,3 +12,4 @@
 export const CHANGE_INPUT = 'boilerplate/Home/CHANGE_INPUT';
 export const RESET_INPUT = 'boilerplate/Home/RESET_INPUT';
 export const VALID_INPUT = 'boilerplate/Home/VALID_INPUT';
+export const ERROR_MESSAGE = 'boilerplate/Home/ERROR_MESSAGE';

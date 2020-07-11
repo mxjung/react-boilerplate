@@ -8,6 +8,7 @@ const InvalidInput = styled.div`
   border: 1px solid red;
   border-radius: 5px;
   background-color: rgba(255, 131, 115);
+  margin-top: 15px;
 `;
 
 export default InvalidInput;
