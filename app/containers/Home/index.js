@@ -25,6 +25,7 @@ import saga from './saga';
 const key = 'home';
 
 export function Home({ inputs, loading, error, dispatchInputs }) {
+  // Will allow saga to keep track of LOAD_INPUTS action
   useInjectSaga({ key, saga });
 
   useEffect(() => {
