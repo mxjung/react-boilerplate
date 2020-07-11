@@ -1,7 +1,14 @@
 ## Developer's Notes
 
-  <dd>This application is a simple frontend/backend website that is built on top of the react-boilerplate template.</dd>
+  <dd>This application is a simple frontend/backend website that is built on top of the react-boilerplate template. Users are able to add a string to an array, which is stored in the backend Express server. That array is then stored in the frontend Redux store. There are several points to highlight:</dd>
 
+- The app is built to safeguard it from worst case scenarios. The input form that the user utilizes to add a string to the array is built so that it does not accept empty strings. If a user attempts to add an empty string to the array, a warning component will appear, notifying users to add a valid string. In addition, users are not allowed to add a string that is more than 15 characters. This is merely done as an example of character limitations. If a user attempts to type a string that is more than 15 characters, an error component will appear asking users to input a string that is less than or equal to 15 characters.
+
+- The app is designed to be understandable. The website is easily navigable between the two main pages ('Home' and 'Add String') using the two buttons on the page. In addition, the components have spinning wheels giving users feedback on when data is being retrieved. As mentioned before, any input mistakes that users make are easily fixed by red error components that flash, notifying users on how to correctly input a string.
+
+- The website for the most part utilizes simple styled components for styling. One example of a reusable styled component that accepts props to be used for conditional rendering is the Banner component in the Header component. Banner accepts multiple props that allow users to create simple div elements that can have pieces of writing that has various font sizes, borders, padding, etc.
+
+<br />
 
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 

@@ -20,6 +20,6 @@ export default defineMessages({
   charLimitErrorMsg: {
     id: `${scope}.charLimitErrorMsg.message`,
     defaultMessage:
-      'Please keep your input string less than 15 characters long',
+      'Please keep your input string less than or equal to 15 characters long',
   },
 });
