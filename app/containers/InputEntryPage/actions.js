@@ -66,7 +66,7 @@ export function toggleValidInput(valid) {
  *
  * @param  {string} errorMsg  Error string message
  *
- * @return {object}           An action object with a type of ERROR_MESSAGE and a errorMsg value
+ * @return {object}           An action object with a type of ERROR_MESSAGE and a errorMsg
  */
 export function changeErrorMsg(errorMsg) {
   return {

@@ -1,27 +1,32 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-// import A from './A';
-// import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
-// import Banner from './banner.jpg';
 import messages from './messages';
 import Banner from './Banner';
-import Intro from './Intro';
+
+/**
+ * Header component utilizes a styled component called banner that takes in
+ * props that are used for conditional rendering
+ */
 
 function Header() {
   return (
     <div>
-      {/* <A href="https://www.reactboilerplate.com/">
-        <Img src={Banner} alt="react-boilerplate - Logo" />
-      </A> */}
-      <Banner>
+      <Banner fontSize="25px">
         <FormattedMessage {...messages.welcome} />
       </Banner>
-      <Intro>
+      <Banner
+        fontSize="15px"
+        border="1px solid grey"
+        borderRadius="8px"
+        margin="10px auto"
+        padding="15px 20px"
+        maxWidth="80%"
+      >
         <FormattedMessage {...messages.intro} />
-      </Intro>
+      </Banner>
       <NavBar>
         <HeaderLink to="/">
           <FormattedMessage {...messages.home} />
