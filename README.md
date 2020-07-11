@@ -1,3 +1,8 @@
+## Developer's Notes
+
+  <dd>This application is a simple frontend/backend website that is built on top of the react-boilerplate template.</dd>
+
+
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 
 <br />
