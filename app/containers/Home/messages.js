@@ -13,4 +13,8 @@ export default defineMessages({
     defaultMessage:
       'There are no inputs. Add values by clicking on "Add String" button',
   },
+  description: {
+    id: `${scope}.description.header`,
+    defaultMessage: 'Here are the string entries you have added',
+  },
 });

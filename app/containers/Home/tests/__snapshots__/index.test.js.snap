@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> should render and match the snapshot 1`] = `
+<article>
+  <div>
+    <section
+      class="Section-eaizcf-0 CenteredSection-sc-4fyhoo-0 bKZikw"
+    >
+      <p>
+        <span>
+          There are no inputs. Add values by clicking on "Add String" button
+        </span>
+      </p>
+    </section>
+  </div>
+</article>
+`;

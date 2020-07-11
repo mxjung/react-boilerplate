@@ -18,7 +18,6 @@ export function* getInputs() {
 
     // mxjung: let's make GET request
     const inputs = yield call(request, requestURL);
-
     yield put(inputsLoaded(inputs));
   } catch (err) {
     yield put(inputLoadingError(err));

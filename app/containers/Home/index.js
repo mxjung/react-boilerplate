@@ -1,5 +1,5 @@
 /*
- * HomePage
+ * Home
  *
  * This is the first thing users see of our App, at the '/' route
  */
@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-// import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 // import { select } from 'redux-saga/effects';
 
@@ -30,13 +29,11 @@ import messages from './messages';
 // // mxjung: added: loadInputs
 import { loadInputs } from '../App/actions';
 // import { makeSelectInputs } from '../Home/selectors';
-// import reducer from './reducer';
 import saga from './saga';
 
 const key = 'home';
 
 export function Home({ inputs, loading, error, dispatchInputs }) {
-  // useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
@@ -73,7 +70,12 @@ export function Home({ inputs, loading, error, dispatchInputs }) {
             </p>
           </CenteredSection>
         ) : (
-          <InputsList {...inputsListProps} />
+          <CenteredSection>
+            <p>
+              <FormattedMessage {...messages.description} />
+            </p>
+            <InputsList {...inputsListProps} />
+          </CenteredSection>
         )}
       </div>
     </article>
