@@ -121,7 +121,7 @@ export function mapDispatchToProps(dispatch) {
         dispatch(changeErrorMsg('charLimit'));
       } else {
         // Once users are below the char limit, remove the error msg on screen
-        dispatch(changeErrorMsg(''));
+        if (evt.target.value.length === 14) dispatch(changeErrorMsg(''));
         dispatch(changeInput(evt.target.value));
       }
     },
