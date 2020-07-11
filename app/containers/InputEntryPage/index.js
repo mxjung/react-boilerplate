@@ -111,17 +111,20 @@ const mapStateToProps = createStructuredSelector({
   errorMsg: makeSelectErrorMsg(),
 });
 
+const maxCharLength = 15;
+
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeInputString: evt => {
-      if (evt.target.value.length > 15) {
+      if (evt.target.value.length > maxCharLength) {
         // if the user adds a input string that is greater than 15 characters, don't allow it.
         // an error msg will pop up on screen notifying users to pick a string that is less than
         // 15 characters. This is done mainly to protect the application from the worst case scenario.
         dispatch(changeErrorMsg('charLimit'));
       } else {
         // Once users are below the char limit, remove the error msg on screen
-        if (evt.target.value.length === 14) dispatch(changeErrorMsg(''));
+        if (evt.target.value.length === maxCharLength - 1)
+          dispatch(changeErrorMsg(''));
         dispatch(changeInput(evt.target.value));
       }
     },
