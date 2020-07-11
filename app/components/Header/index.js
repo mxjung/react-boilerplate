@@ -27,7 +27,7 @@ function Header() {
           <FormattedMessage {...messages.home} />
         </HeaderLink>
         <HeaderLink to="/inputs">
-          <FormattedMessage {...messages.features} />
+          <FormattedMessage {...messages.addString} />
         </HeaderLink>
       </NavBar>
     </div>

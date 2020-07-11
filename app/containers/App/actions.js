@@ -16,26 +16,11 @@
  */
 
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
-  // mxjung
   LOAD_INPUTS,
   LOAD_INPUTS_SUCCESS,
+  LOAD_INPUTS_ERROR,
   POST_INPUT,
-  ADD_INPUT,
 } from './constants';
-
-/**
- * Load the repositories, this action starts the request saga
- *
- * @return {object} An action object with a type of LOAD_REPOS
- */
-export function loadRepos() {
-  return {
-    type: LOAD_REPOS,
-  };
-}
 
 /**
  * mxjung: Load the user inputs, this action starts the request saga
@@ -60,22 +45,6 @@ export function postInput() {
 }
 
 /**
- * Dispatched when the repositories are loaded by the request saga
- *
- * @param  {array} repos The repository data
- * @param  {string} username The current username
- *
- * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
- */
-export function reposLoaded(repos, username) {
-  return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
-    username,
-  };
-}
-
-/** mxjung
  * Dispatched when the user inputs are loaded by the request saga
  *
  * @param  {array} inputs The array containing user input strings
@@ -89,30 +58,16 @@ export function inputsLoaded(inputs) {
   };
 }
 
-/** mxjung
- * Dispatched to add input to array
- *
- * @param  {array} inputs The array containing user input strings
- *
- * @return {object}      An action object with a type of ADD_INPUT passing the inputs
- */
-export function addInput(input) {
-  return {
-    type: ADD_INPUT,
-    input,
-  };
-}
-
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when loading the inputs fails
  *
  * @param  {object} error The error
  *
  * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function inputLoadingError(error) {
   return {
-    type: LOAD_REPOS_ERROR,
+    type: LOAD_INPUTS_ERROR,
     error,
   };
 }

@@ -1,9 +1,8 @@
 import {
   selectGlobal,
-  makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectUserInputs,
   makeSelectLocation,
 } from '../selectors';
 
@@ -14,19 +13,6 @@ describe('selectGlobal', () => {
       global: globalState,
     };
     expect(selectGlobal(mockedState)).toEqual(globalState);
-  });
-});
-
-describe('makeSelectCurrentUser', () => {
-  const currentUserSelector = makeSelectCurrentUser();
-  it('should select the current user', () => {
-    const username = 'mxstbr';
-    const mockedState = {
-      global: {
-        currentUser: username,
-      },
-    };
-    expect(currentUserSelector(mockedState)).toEqual(username);
   });
 });
 
@@ -56,18 +42,16 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectRepos', () => {
-  const reposSelector = makeSelectRepos();
-  it('should select the repos', () => {
-    const repositories = [];
+describe('makeSelectUserInputs', () => {
+  const reposSelector = makeSelectUserInputs();
+  it('should select the inputs', () => {
+    const inputs = [];
     const mockedState = {
       global: {
-        userData: {
-          repositories,
-        },
+        userInputs: inputs,
       },
     };
-    expect(reposSelector(mockedState)).toEqual(repositories);
+    expect(reposSelector(mockedState)).toEqual(inputs);
   });
 });
 

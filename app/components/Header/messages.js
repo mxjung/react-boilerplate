@@ -21,7 +21,7 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'Home',
   },
-  features: {
+  addString: {
     id: `${scope}.addString`,
     defaultMessage: 'Add String',
   },

@@ -47,7 +47,6 @@ export default function App() {
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      {/* <Footer /> */}
       <GlobalStyle />
     </AppWrapper>
   );

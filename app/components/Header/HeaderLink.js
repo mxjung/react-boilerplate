@@ -18,7 +18,12 @@ export default styled(Link)`
   border: 2px solid #41addd;
   color: #41addd;
 
+  &:hover {
+    transform: scale(1.1);
+  }
+
   &:active {
+    transform: scale(1);
     background: #41addd;
     color: #fff;
   }

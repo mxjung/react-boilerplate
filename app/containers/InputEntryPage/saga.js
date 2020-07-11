@@ -4,7 +4,7 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { POST_INPUT } from 'containers/App/constants';
-import { repoLoadingError, addInput } from 'containers/App/actions';
+import { inputLoadingError, inputsLoaded } from 'containers/App/actions';
 
 import request from 'utils/request';
 import { makeSelectInput } from 'containers/InputEntryPage/selectors';
@@ -26,13 +26,12 @@ export function* postInput() {
     // submitted input is invalid, and to enter a valid input
 
     if (input === '') {
-      // show warning for 5 sec
       yield put(toggleValidInput(false));
     } else {
       yield put(toggleValidInput(true));
 
       // make post request to add input string to backend server array
-      yield call(request, requestURL, {
+      const updatedInputs = yield call(request, requestURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,11 +44,11 @@ export function* postInput() {
       // reset user input form value to be empty
       yield put(resetInput());
 
-      // Update redux store with new valley
-      yield put(addInput(input));
+      // Update redux store with new value
+      yield put(inputsLoaded(updatedInputs));
     }
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(inputLoadingError(err));
   }
 }
 

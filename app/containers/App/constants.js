@@ -16,5 +16,5 @@ export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
 // mxjung
 export const LOAD_INPUTS = 'boilerplate/App/LOAD_INPUTS';
 export const LOAD_INPUTS_SUCCESS = 'boilerplate/App/LOAD_INPUTS_SUCCESS';
+export const LOAD_INPUTS_ERROR = 'boilerplate/App/LOAD_INPUTS_ERROR';
 export const POST_INPUT = 'boilerplate/App/POST_INPUT';
-export const ADD_INPUT = 'boilerplate/App/ADD_INPUT';

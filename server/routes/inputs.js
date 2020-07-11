@@ -14,7 +14,6 @@ const arrayOfStrings = [];
 
 router.get('/', async function getInputs(req, res, next) {
   try {
-    console.log('inside GET /api');
     return res.json(arrayOfStrings);
   } catch (err) {
     return next(err);
@@ -30,8 +29,6 @@ router.get('/', async function getInputs(req, res, next) {
 
 router.post('/', (req, res, next) => {
   try {
-    console.log('inside POST /api');
-
     // prepend string to arrayOfStrings
     arrayOfStrings.unshift(req.body.input);
     return res.json(arrayOfStrings);
